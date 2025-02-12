@@ -29,10 +29,12 @@ def read_person(conn, person_id):
 
 def update_person(conn, person_id, person):
     cursor = conn.cursor()
-    cursor.execute("UPDATE person SET firstname = %s, lastname = %s, age = %s WHERE id = %s", (person['firstname'], person['lastname'], person['age'], person_id))
-    person = cursor.fetchone()
+    cursor.execute(
+        "UPDATE person SET firstname = %s, lastname = %s, age = %s WHERE id = %s",
+        (person['firstname'], person['lastname'], person['age'], person_id)
+    )
+    conn.commit()
     cursor.close()
-    return person
 
 def delete_person(conn, person_id):
     cursor = conn.cursor()
@@ -52,7 +54,10 @@ if __name__ == "__main__":
 # print(readpersons)
 
 #balik muna here para mas magets hehe
-updated_person = read_person(conn, 1)
-update_person(conn, 1, {'firstname': 'karl', 'lastname': 'aguinaldo', 'age': 12})
-print(updated_person)
+# updated_person = read_person(conn, 1)
+# update_person(conn, 1, {'firstname': 'karl', 'lastname': 'aguinaldo', 'age': 12})
+# print(updated_person)
    
+deleteperson = delete_person(conn, 1)
+delete_person(conn, 1)
+print(delete_person)
