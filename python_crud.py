@@ -30,7 +30,7 @@ def read_person(conn, person_id):
 def update_person(conn, person_id, person):
     cursor = conn.cursor()
     cursor.execute("UPDATE person SET firstname = %s, lastname = %s, age = %s WHERE id = %s", (person['firstname'], person['lastname'], person['age'], person_id))
-    person = cursor.fetchnon()
+    person = cursor.fetchone()
     cursor.close()
     return person
 
@@ -48,48 +48,11 @@ if __name__ == "__main__":
         password="admin"
     )
 
+# readpersons = update_person(conn, 2)
+# print(readpersons)
 
-#from GPT, pinaganda ko lang yung code and trying to understand it even more hehe. di pa masyado gets super dami ng codes hehe dami pa errors
-while True:
-        print("Select an operation:")
-        print("1 - Create person")
-        print("2 - Read all persons")
-        print("3 - Read person")
-        print("4 - Update person")
-        print("5 - Delete person")
-        print("6 - Exit")
-
-        choice = input("Enter choice: ")
-
-        if choice == '1':
-            firstname = input("Enter first name: ")
-            lastname = input("Enter last name: ")
-            age = input("Enter age: ")
-            create_person(conn, firstname, lastname, age)
-        elif choice == '2':
-            persons = read_all_persons(conn)
-            for person in persons:
-                print(person)
-        elif choice == '3':
-            person_id = input("Enter person ID: ")
-            person = read_person(conn, person_id)
-            print(person)
-        elif choice == '4':
-            person_id = input("Enter person ID: ")
-            firstname = input("Enter new first name: ")
-            lastname = input("Enter new last name: ")
-            age = input("Enter new age: ")
-            update_person(conn, person_id, firstname, lastname, age)
-        elif choice == '5':
-            person_id = input("Enter person ID: ")
-            delete_person(conn, person_id)
-        elif choice == '6':
-            break
-        else:
-            print("Invalid choice. Please try again.")
-
-        conn.close()
-
-if __name__ == "__main__":
-    main()
+#balik muna here para mas magets hehe
+updated_person = read_person(conn, 1)
+update_person(conn, 1, {'firstname': 'karl', 'lastname': 'aguinaldo', 'age': 12})
+print(updated_person)
    
